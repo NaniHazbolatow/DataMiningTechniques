@@ -3,7 +3,7 @@ import numpy as np
 import openpyxl as px
 
 # load in the basic data
-basic_data = pd.read_excel('/Users/valentindonchev/Library/CloudStorage/OneDrive-VrijeUniversiteitAmsterdam/Data Mining/DataMiningTechniques/Group Assignment 1/basic_data.xlsx')
+basic_data = pd.read_excel('./Group Assignment 1/basic_data.xlsx')
 
 # how many observations are there
 len(basic_data) # 245
@@ -11,18 +11,10 @@ len(basic_data) # 245
 # what are the attributes here?
 str(basic_data)
 
-
 # generating summary statistics of t
 basic_data.describe()
 
-
-
-
-
-
-
-
-
+# TODO
 
 # Task 2 Classification
 
@@ -82,22 +74,8 @@ set(clean_data['machine_learning']) # no, unknown, yes
 # investigating the information retrieval answers
 set(clean_data['information_retrieval']) # no, unknown, yes
 
-
-
 set(clean_data['program'])
-
-
-
-
-
 
 # look into optuna
 
-
-
-basic_data_tidy
-
-
-
-
-
+print(clean_data)
