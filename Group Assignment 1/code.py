@@ -69,9 +69,20 @@ clean_data['program'] = clean_data['program'].apply(
     else 'Human Language Technology' if pd.notnull(x) and ('human language' in x.lower())
     else 'Big Data Engineering' if pd.notnull(x) and ('data engineer' in x.lower())
     else 'Green IT' if pd.notnull(x) and ('green' in x.lower())
-    else 'Unknown' if pd.notnull(x) and ('data engineer' in x.lower())
+    else 'Unknown' if pd.notnull(x) and ('ba' in x.lower() or '1234' in x.lower() or 'fintech' in x.lower() or 'master' in x.lower())
+    else 'Security' if pd.notnull(x) and ('npn' in x.lower() or 'security' in x.lower())
     else x
 )
+
+# investigating the machine learning answers
+set(clean_data['machine_learning']) # no, unknown, yes
+
+# to be c
+
+# investigating the information retrieval answers
+set(clean_data['information_retrieval']) # no, unknown, yes
+
+
 
 set(clean_data['program'])
 
