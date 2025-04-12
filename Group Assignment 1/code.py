@@ -12,7 +12,7 @@ len(basic_data) # 245
 # what are the attributes here?
 str(basic_data)
 
-# generating summary statistics of t
+# generating summary statistics of the variables
 basic_data.describe()
 
 # TODO
@@ -39,14 +39,14 @@ basic_data_tidy = basic_data. \
                     'What makes a good day for you (2)?': 'good_day2'})
 
 # verify the columns were renamed
-basic_data_tidy.columns
+print(basic_data_tidy.columns)
 
 # Keep only the relevant columns
 basic_data_tidy = basic_data_tidy[['stress_level', 'program', 'sports', 'time_bed_yesterday', 'machine_learning', 'information_retrieval',
                           'statistics', 'databases', 'gender', 'chatgpt_usage', 'birthday_date', 'good_day1', 'good_day2']]
 
-# I will clean the data up a bit now. Taking a look at the answers for the program someone is in
-set(basic_data_tidy['program'])
+# the answers people put for the program they're in
+print(set(basic_data_tidy['program']))
 
 # Modifying the program answers so everything is consistent
 basic_data_tidy.loc[:, 'program'] = basic_data_tidy['program'].apply(
@@ -64,17 +64,17 @@ basic_data_tidy.loc[:, 'program'] = basic_data_tidy['program'].apply(
     else x)
 
 # verifying that worked
-set(basic_data_tidy['program'])
+print(set(basic_data_tidy['program']))
 
 # investigating the machine learning answers
-set(basic_data_tidy['machine_learning']) # no, unknown, yes
+print(set(basic_data_tidy['machine_learning'])) # no, unknown, yes
 
 # Adjust pandas display options
 pd.set_option('display.max_rows', None)  # Show all rows
 pd.set_option('display.max_columns', None)  # Show all columns
 
 # how many people said they don't know if they took a machine learning course?
-basic_data_tidy[basic_data_tidy['machine_learning'] == 'unknown'] # only 2 people
+print(basic_data_tidy[basic_data_tidy['machine_learning'] == 'unknown']) # only 2 people
 
 # If these people don't know if they took a course, we can assume they didn't. I will make values either a 0 or 1 to easily
 # denote them as dummy variables
@@ -83,10 +83,10 @@ basic_data_tidy['machine_learning'] = basic_data_tidy['machine_learning'].apply(
 )
 
 # verifying that worked
-set(basic_data_tidy['machine_learning']) # 0 or 1
+print(set(basic_data_tidy['machine_learning'])) # 0 or 1
 
 # investigating stress level
-basic_data_tidy['stress_level']
+print(basic_data_tidy['stress_level'])
 
 # There are some answers larger than 100, below 0, and some nonsensical answers. I will deal with this in a few ways. First,
 # all values larger than 100 will be assigned 100. All values below 0 will be assigned their absolute value, and if this
@@ -102,7 +102,7 @@ basic_data_tidy['stress_level'] = basic_data_tidy['stress_level'].apply(
 )
 
 # how many NA values are there?
-basic_data_tidy[basic_data_tidy['stress_level'].isna()] # 5
+print(basic_data_tidy[basic_data_tidy['stress_level'].isna()]) # 5
 
 # Computing the average
 average_stress = basic_data_tidy['stress_level'].mean()
@@ -113,11 +113,11 @@ print(average_stress) # 47.803
 # replacing the NA values with the average
 basic_data_tidy['stress_level'] = basic_data_tidy['stress_level'].fillna(average_stress)
 
-# Calculate the range of the 'stress_level' column
+# Calculate the range of the stress column
 print(basic_data_tidy['stress_level'].min(), basic_data_tidy['stress_level'].max()) # 0, 100
 
 # now I move to sports
-set(basic_data_tidy['sports'])
+print(set(basic_data_tidy['sports']))
 
 # there are some nonsensical answers here as well. The highest value that I think realistically could be true is 23. Some
 # people put 'hours' in their answer. That will be removed, and for people that put a range (3-4) I will just take
@@ -168,14 +168,14 @@ average_sports = basic_data_tidy['sports'].mean() # 5.54 hours per week it seems
 # replacing the NA values with the average
 basic_data_tidy['sports'] = basic_data_tidy['sports'].fillna(average_sports)
 
-# checking it out
-basic_data_tidy['sports']
+# verifying the values look good
+print(basic_data_tidy['sports']) # everything looks fine now
 
-# time you went to bed yesterday
-basic_data_tidy['time_bed_yesterday']
+# moving to this variable now
+print(basic_data_tidy['time_bed_yesterday'])
 
 # My idea is to instead convert this column into the number of hours someone slept. I will do this by assuming everyone
-# wakes up at 7:30. I will convert the : to periods to make the conversion easier, and I will get rid of the am/pm stuff.
+# wakes up at 7:30. I will convert the ':' to periods to make the conversion easier, and I will get rid of the am/pm stuff.
 # Someone also wrote 'around midnight'.
 basic_data_tidy['time_bed_yesterday'] = basic_data_tidy['time_bed_yesterday'].apply(
     lambda x: str(x).replace(':', '.').replace('am', '').replace('pm', ''). \
@@ -201,7 +201,8 @@ basic_data_tidy['time_bed_yesterday'] = basic_data_tidy['time_bed_yesterday'].ap
 )
 
 # verifying it
-set(basic_data_tidy['time_bed_yesterday'])
+#print(set(basic_data_tidy['time_bed_yesterday']))
+
 
 # replacing some stuff. That person who put a crazy number will be replaced with a 0 for midnight.
 basic_data_tidy['time_bed_yesterday'] = basic_data_tidy['time_bed_yesterday'].replace('2300', '-1').replace('0200', '2'). \
