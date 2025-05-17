@@ -2,3 +2,7 @@ dmt-2025-2nd-assignment
 .venv
 data
 Group Assignmnet 2/dmt-2025-2nd-assignment
+*.csv
+*.tsv
+*.json
+*.tfevents
