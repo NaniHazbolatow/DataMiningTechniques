@@ -1,0 +1,2 @@
+Hyperparameters:
+{'learning_rate': 0.15016300399549445, 'depth': 6, 'l2_leaf_reg': 1.6703344196115146, 'random_strength': 1.4656659667834733, 'bagging_temperature': 0.6607812816531521}
