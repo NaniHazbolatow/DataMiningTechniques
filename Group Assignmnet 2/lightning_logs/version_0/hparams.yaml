@@ -1,0 +1,5 @@
+dropout: 0.5
+embedding_dim: 128
+hotel_dim: 8
+lr: 0.001
+user_dim: 17
